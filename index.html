@@ -13,7 +13,6 @@
       --navy: #1d3c5e;
       --blue: #2a5280;
       --gold: #b89a6e;
-      --bg:   #e8f0f8;
     }
 
     html, body {
@@ -32,6 +31,12 @@
     }
 
     /* ══════════════════════════════════════
+       LOGO SVG
+    ══════════════════════════════════════ */
+    .logo-svg        { height: 8.5vh; width: auto; display: block; }
+    .logo-svg-sm     { height: 7vh;   width: auto; display: block; }
+
+    /* ══════════════════════════════════════
        HEADER
     ══════════════════════════════════════ */
     .header {
@@ -40,13 +45,6 @@
       align-items: center;
       flex-shrink: 0;
       height: 10vh;
-    }
-
-    .logo img {
-      height: 8vh;
-      width: auto;
-      object-fit: contain;
-      display: block;
     }
 
     .test-btns {
@@ -116,7 +114,7 @@
     }
 
     /* ══════════════════════════════════════
-       HERO: TIME + COUNTDOWN (grouped)
+       HERO: TIME + COUNTDOWN
     ══════════════════════════════════════ */
     .hero {
       flex: 1;
@@ -128,11 +126,7 @@
       padding-bottom: 1.5vh;
     }
 
-    /* TIME */
-    .time-row {
-      text-align: center;
-      flex-shrink: 0;
-    }
+    .time-row { text-align: center; flex-shrink: 0; }
 
     .time-label {
       font-size: max(.75vw, 9px);
@@ -153,10 +147,7 @@
       line-height: 1;
     }
 
-    /* COUNTDOWN */
-    .cd-wrap {
-      flex-shrink: 0;
-    }
+    .cd-wrap { flex-shrink: 0; }
 
     .cd-label {
       text-align: center;
@@ -239,23 +230,20 @@
     }
 
     /* ══════════════════════════════════════
-       COUNTDOWN COLOR STATES
+       COLOR STATES
     ══════════════════════════════════════ */
-    /* WARNING ≤ 4h → amber */
     .countdown.s-warning .card {
       background: #b45309;
       box-shadow: 0 1.2vh 4vh rgba(180,83,9,.45), 0 .3vh 1vh rgba(180,83,9,.3);
     }
     .countdown.s-warning .sep { color:#fbbf24; opacity:.8; }
 
-    /* ALERT ≤ 1h → red */
     .countdown.s-alert .card {
       background: #dc2626;
       box-shadow: 0 1.2vh 4vh rgba(220,38,38,.48), 0 .3vh 1vh rgba(220,38,38,.32);
     }
     .countdown.s-alert .sep { color:#fca5a5; opacity:.9; }
 
-    /* CRITICAL ≤ 10s → red pulsing */
     @keyframes pulse-crit {
       0%,100%{ background:#dc2626; transform:scale(1);    box-shadow:0 1.2vh 4vh rgba(220,38,38,.48); }
       50%    { background:#ff1a1a; transform:scale(1.06); box-shadow:0 2.5vh 6vh rgba(255,0,0,.7); }
@@ -263,7 +251,6 @@
     .countdown.s-critical .card { animation: pulse-crit .5s ease-in-out infinite; }
     .countdown.s-critical .sep  { color:#fca5a5; opacity:1; }
 
-    /* HOUR FLASH */
     @keyframes hour-flash {
       0%        { background: var(--pre, #1d3c5e); transform:scale(1); }
       20%,65%   { background: #dc2626; transform:scale(1.08); box-shadow:0 1.5vh 5vh rgba(220,38,38,.7); }
@@ -281,11 +268,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0;
     }
     .overlay.on { display: flex; }
 
-    /* confetti container */
+    /* Confetti */
     #confetti-box {
       position: fixed; inset: 0; z-index: 210;
       pointer-events: none;
@@ -298,47 +284,54 @@
       100% { transform: translateY(105vh) rotate(800deg); opacity: 0; }
     }
 
-    /* Overlay logo */
-    .ov-logo {
+    /* Overlay header (logos + reset btn) */
+    .ov-header {
       position: absolute;
-      top: 3vh; left: 3vw;
+      top: 3vh; left: 3vw; right: 3vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .ov-logo img { height: 7vh; width:auto; }
 
-    /* Overlay reset btn */
-    .ov-reset {
-      position: absolute;
-      top: 3.5vh; right: 3vw;
-      display: none;
+    .ov-logos {
+      display: flex;
+      align-items: center;
+      gap: 2.5vw;
     }
-    .ov-reset.on { display: block; }
+
+    /* Propiedades logo slot */
+    .prop-logo {
+      height: 6.5vh;
+      width: auto;
+      display: block;
+      /* brightness filter makes dark logos visible on dark bg —
+         remove if your logo is already light-colored */
+      filter: brightness(0) invert(1);
+      opacity: .85;
+    }
 
     /* Flag area */
     .flag-area {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0;
-      margin-bottom: 3vh;
+      margin-bottom: 2.5vh;
     }
 
     .flagpole {
       width: 10px;
-      height: 34vh;
+      height: 36vh;
       background: linear-gradient(180deg,#d4d4d4,#888 60%,#555);
       border-radius: 5px;
       flex-shrink: 0;
       box-shadow: 0 0 12px rgba(0,0,0,.4);
     }
 
-    #flag-canvas {
-      display: block;
-    }
+    #flag-canvas { display: block; }
 
     /* Go Live text */
     @keyframes golive-pop {
-      0%  { opacity:0; transform:scale(.7) translateY(30px); }
-      60% { transform:scale(1.06) translateY(-6px); }
+      0%  { opacity:0; transform:scale(.72) translateY(28px); }
+      60% { transform:scale(1.05) translateY(-5px); }
       100%{ opacity:1; transform:scale(1) translateY(0); }
     }
 
@@ -361,31 +354,61 @@
       text-align: center;
     }
 
-    /* Sparkles on overlay */
+    /* Sparkles */
     @keyframes sparkle {
       0%,100%{ opacity:0; transform:scale(0) rotate(0deg); }
       50%    { opacity:1; transform:scale(1) rotate(180deg); }
     }
     .sparkle {
       position: absolute;
-      width: 12px; height: 12px;
       background: var(--gold);
       clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
       animation: sparkle 1.5s ease-in-out infinite;
       pointer-events: none;
     }
+
+    .ov-reset { display:none; }
+    .ov-reset.on { display:block; }
   </style>
 </head>
 <body>
 
-  <!-- ══ CONFETTI BOX ══ -->
+  <!-- ══ CONFETTI ══ -->
   <div id="confetti-box"></div>
 
-  <!-- ══ GO LIVE OVERLAY ══ -->
+  <!-- ══════════════════════════════════════
+       GO LIVE OVERLAY
+  ══════════════════════════════════════ -->
   <div class="overlay" id="overlay">
-    <div class="ov-logo"><img src="logo.png" alt="MFD" /></div>
 
-    <button class="tbtn real ov-reset" id="ov-reset" onclick="stopSim()">Volver a tiempo real</button>
+    <div class="ov-header">
+      <!-- MFD logo (white version) -->
+      <div class="ov-logos">
+        <svg class="logo-svg-sm" viewBox="0 0 520 175" xmlns="http://www.w3.org/2000/svg">
+          <!-- Church body -->
+          <polygon points="85,2 89,52 81,52" fill="#fff"/>
+          <circle cx="85" cy="57" r="5.5" fill="#fff"/>
+          <rect x="79" y="61" width="12" height="23" fill="#fff"/>
+          <polygon points="16,95 85,63 154,95" fill="#fff"/>
+          <rect x="47" y="95" width="76" height="75" fill="#fff"/>
+          <rect x="10" y="110" width="39" height="60" fill="#fff"/>
+          <rect x="121" y="110" width="39" height="60" fill="#fff"/>
+          <!-- Cutouts (match overlay bg) -->
+          <path d="M71,170 L71,148 A14,14 0 0,1 99,148 L99,170 Z" fill="#1a3550"/>
+          <path d="M19,140 L19,129 A10,10 0 0,1 39,129 L39,140 Z" fill="#1a3550" opacity="0.7"/>
+          <path d="M131,140 L131,129 A10,10 0 0,1 151,129 L151,140 Z" fill="#1a3550" opacity="0.7"/>
+          <!-- Divider -->
+          <rect x="193" y="27" width="2.5" height="122" fill="#b89a6e"/>
+          <!-- MFD text -->
+          <text x="210" y="150" font-family="Inter,'Arial Black',Arial,sans-serif" font-weight="900" font-size="104" fill="#fff" letter-spacing="-4">MFD</text>
+        </svg>
+
+        <!-- Propiedades logo — guarda el archivo como "propiedades-logo.png" en la carpeta del proyecto -->
+        <img src="propiedades-logo.png" class="prop-logo" alt="Propiedades" id="prop-logo-img" />
+      </div>
+
+      <button class="tbtn real ov-reset" id="ov-reset" onclick="stopSim()">Volver a tiempo real</button>
+    </div>
 
     <div class="flag-area">
       <div class="flagpole"></div>
@@ -396,27 +419,50 @@
     <div class="golive-sub">El nuevo modelo OyM ya está en marcha · Colombia</div>
   </div>
 
-  <!-- ══ HEADER ══ -->
+  <!-- ══════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════ -->
   <div class="header">
-    <div class="logo">
-      <img src="logo.png" alt="MFD" />
-    </div>
+    <!-- MFD logo (dark version, on light bg) -->
+    <svg class="logo-svg" viewBox="0 0 520 175" xmlns="http://www.w3.org/2000/svg">
+      <!-- Church body -->
+      <polygon points="85,2 89,52 81,52" fill="#1d3c5e"/>
+      <circle cx="85" cy="57" r="5.5" fill="#1d3c5e"/>
+      <rect x="79" y="61" width="12" height="23" fill="#1d3c5e"/>
+      <polygon points="16,95 85,63 154,95" fill="#1d3c5e"/>
+      <rect x="47" y="95" width="76" height="75" fill="#1d3c5e"/>
+      <rect x="10" y="110" width="39" height="60" fill="#1d3c5e"/>
+      <rect x="121" y="110" width="39" height="60" fill="#1d3c5e"/>
+      <!-- Cutouts (match page bg) -->
+      <path d="M71,170 L71,148 A14,14 0 0,1 99,148 L99,170 Z" fill="#e8f0f8"/>
+      <path d="M19,140 L19,129 A10,10 0 0,1 39,129 L39,140 Z" fill="#e8f0f8" opacity="0.6"/>
+      <path d="M131,140 L131,129 A10,10 0 0,1 151,129 L151,140 Z" fill="#e8f0f8" opacity="0.6"/>
+      <!-- Divider -->
+      <rect x="193" y="27" width="2.5" height="122" fill="#a08060"/>
+      <!-- MFD text -->
+      <text x="210" y="150" font-family="Inter,'Arial Black',Arial,sans-serif" font-weight="900" font-size="104" fill="#1d3c5e" letter-spacing="-4">MFD</text>
+    </svg>
+
     <div class="test-btns">
       <span class="sim-pill" id="sim-pill">Simulación activa</span>
       <button class="tbtn" onclick="simulate(4*3600*1000+500)">Simular 4 h</button>
       <button class="tbtn" onclick="simulate(1*3600*1000+500)">Simular 1 h</button>
       <button class="tbtn" onclick="simulate(10*1000+800)">Simular 10 s</button>
-      <button class="tbtn real"  onclick="stopSim()">Tiempo real</button>
+      <button class="tbtn real" onclick="stopSim()">Tiempo real</button>
     </div>
   </div>
 
-  <!-- ══ TITLE ══ -->
+  <!-- ══════════════════════════════════════
+       TITLE
+  ══════════════════════════════════════ -->
   <div class="title-section">
     <div class="eyebrow">Implementación de Nuevo Modelo OyM</div>
     <div class="main-title">Go Live — Colombia</div>
   </div>
 
-  <!-- ══ HERO (time + countdown) ══ -->
+  <!-- ══════════════════════════════════════
+       HERO: TIME + COUNTDOWN
+  ══════════════════════════════════════ -->
   <div class="hero">
 
     <div class="time-row">
@@ -457,19 +503,13 @@
       </div>
     </div>
 
-  </div><!-- /hero -->
+  </div>
 
   <script>
-    // ── Go Live target: May 29 2026 15:00 Bogotá (UTC-5) = 20:00 UTC ──
+    // Go Live: May 29 2026 15:00 Bogotá (UTC-5) = 20:00 UTC
     const GO_LIVE_UTC = Date.UTC(2026, 4, 29, 20, 0, 0);
 
     const pad = n => String(n).padStart(2, '0');
-
-    // ── Bogotá clock (UTC-5, no DST) ──────────────────────────────────
-    function bogota() {
-      const now = new Date();
-      return new Date(now.getTime() + now.getTimezoneOffset() * 60000 - 5 * 3600000);
-    }
 
     // ── Simulation ────────────────────────────────────────────────────
     let simMode = false, simStart = 0, simInit = 0;
@@ -497,6 +537,12 @@
       stopConfetti(); stopFlag();
     }
 
+    // ── Bogotá clock ──────────────────────────────────────────────────
+    function bogota() {
+      const now = new Date();
+      return new Date(now.getTime() + now.getTimezoneOffset() * 60000 - 5 * 3600000);
+    }
+
     // ── Hour-flash ────────────────────────────────────────────────────
     let lastTH = -1;
     const CARDS = ['cd-d','cd-h','cd-m','cd-s'].map(id => document.getElementById(id));
@@ -512,7 +558,6 @@
       setTimeout(() => CARDS.forEach(c => c.classList.remove('flash')), 950);
     }
 
-    // ── State ─────────────────────────────────────────────────────────
     function getState(diff) {
       if (diff <= 10000)   return 'critical';
       if (diff <= 3600000) return 'alert';
@@ -531,10 +576,8 @@
       const diff = getDiff();
 
       if (diff <= 0) {
-        document.getElementById('days').textContent    = '00';
-        document.getElementById('hours').textContent   = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
+        ['days','hours','minutes','seconds'].forEach(id =>
+          document.getElementById(id).textContent = '00');
         if (!goLiveShown) { showGoLive(); goLiveShown = true; }
         return;
       }
@@ -542,15 +585,10 @@
       goLiveShown = false;
 
       const tot = Math.floor(diff / 1000);
-      const d = Math.floor(tot / 86400);
-      const h = Math.floor((tot % 86400) / 3600);
-      const m = Math.floor((tot % 3600) / 60);
-      const s = tot % 60;
-
-      document.getElementById('days').textContent    = pad(d);
-      document.getElementById('hours').textContent   = pad(h);
-      document.getElementById('minutes').textContent = pad(m);
-      document.getElementById('seconds').textContent = pad(s);
+      document.getElementById('days').textContent    = pad(Math.floor(tot / 86400));
+      document.getElementById('hours').textContent   = pad(Math.floor((tot % 86400) / 3600));
+      document.getElementById('minutes').textContent = pad(Math.floor((tot % 3600) / 60));
+      document.getElementById('seconds').textContent = pad(tot % 60);
 
       const state = getState(diff);
       const th = Math.floor(tot / 3600);
@@ -563,12 +601,10 @@
     tick();
     setInterval(tick, 1000);
 
-    // ══════════════════════════════════════════════════════════════════
-    // GO LIVE CELEBRATION
-    // ══════════════════════════════════════════════════════════════════
+    // ════════════════════════════════════════════════════════════════
+    // CELEBRATION
+    // ════════════════════════════════════════════════════════════════
 
-    let confettiRunning = false;
-    let confettiPieces = [];
     let flagRAF = null;
 
     function showGoLive() {
@@ -580,108 +616,108 @@
       spawnSparkles();
     }
 
-    // ── Confetti / Serpentinas ────────────────────────────────────────
+    // ── Confetti ──────────────────────────────────────────────────────
     const CONFETTI_COLORS = [
-      '#1d3c5e','#2a5280','#b89a6e','#fbbf24',
-      '#ef4444','#10b981','#ffffff','#60a5fa',
-      '#f472b6','#a3e635','#fb923c','#e879f9'
+      '#1d3c5e','#2a5280','#b89a6e','#fbbf24','#ef4444',
+      '#10b981','#ffffff','#60a5fa','#f472b6','#a3e635','#fb923c','#e879f9'
     ];
 
     function launchConfetti() {
-      confettiRunning = true;
       const box = document.getElementById('confetti-box');
       box.innerHTML = '';
-      confettiPieces = [];
-
       for (let i = 0; i < 160; i++) {
         const el = document.createElement('div');
-        const isRound   = Math.random() > .65;
-        const isStreamer = Math.random() > .6 && !isRound;
-        const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-        const w = isRound ? 8 + Math.random() * 8 : isStreamer ? 4 + Math.random() * 5 : 6 + Math.random() * 8;
-        const h = isRound ? w : isStreamer ? 18 + Math.random() * 22 : 8 + Math.random() * 12;
-        const dur  = 2.2 + Math.random() * 3.5;
-        const del  = Math.random() * 5;
-
+        const round    = Math.random() > .65;
+        const streamer = !round && Math.random() > .55;
+        const color    = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+        const w = round ? 8 + Math.random() * 8 : streamer ? 4 + Math.random() * 5 : 6 + Math.random() * 8;
+        const h = round ? w : streamer ? 18 + Math.random() * 22 : 9 + Math.random() * 12;
         el.style.cssText = `
-          position:absolute;
-          top:-30px;
+          position:absolute; top:-30px;
           left:${Math.random()*100}vw;
-          width:${w}px;
-          height:${h}px;
+          width:${w}px; height:${h}px;
           background:${color};
-          border-radius:${isRound ? '50%' : isStreamer ? '2px' : '3px'};
+          border-radius:${round ? '50%' : streamer ? '2px' : '3px'};
           opacity:0;
-          animation: confetti-fall ${dur}s ${del}s linear infinite;
-          transform: rotate(${Math.random()*360}deg);
+          animation:confetti-fall ${2.2+Math.random()*3.5}s ${Math.random()*5}s linear infinite;
+          transform:rotate(${Math.random()*360}deg);
         `;
         box.appendChild(el);
-        confettiPieces.push(el);
       }
     }
 
     function stopConfetti() {
-      confettiRunning = false;
       document.getElementById('confetti-box').innerHTML = '';
-      confettiPieces = [];
     }
 
     // ── Sparkles ──────────────────────────────────────────────────────
     function spawnSparkles() {
       const ov = document.getElementById('overlay');
-      const positions = [
-        [15,20],[80,15],[10,70],[85,65],[50,10],[30,80],[70,85],[5,45],[92,40]
-      ];
-      positions.forEach(([l, t], i) => {
+      ov.querySelectorAll('.sparkle').forEach(s => s.remove());
+      [[15,20],[80,15],[10,70],[85,65],[50,10],[30,80],[70,85],[5,45],[92,40]].forEach(([l,top],i) => {
         const s = document.createElement('div');
         s.className = 'sparkle';
-        s.style.cssText = `
-          left:${l}%;top:${t}%;
-          width:${14+Math.random()*18}px;height:${14+Math.random()*18}px;
-          animation-delay:${i * .22}s;
-          animation-duration:${1.2+Math.random()*.8}s;
-        `;
+        s.style.cssText = `left:${l}%;top:${top}%;width:${14+Math.random()*18}px;height:${14+Math.random()*18}px;animation-delay:${i*.22}s;animation-duration:${1.2+Math.random()*.8}s;`;
         ov.appendChild(s);
       });
     }
 
-    // ── Waving F1 Checkered Flag (canvas) ────────────────────────────
+    // ── F1 Waving Flag (improved) ─────────────────────────────────────
     function startFlag() {
       const canvas = document.getElementById('flag-canvas');
-      // Responsive: ~38vw wide, ~20vh tall
-      const W = Math.round(window.innerWidth * .38);
-      const H = Math.round(window.innerHeight * .22);
+      const W = Math.round(window.innerWidth * .44);
+      const H = Math.round(window.innerHeight * .26);
       canvas.width  = W;
       canvas.height = H;
       const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
 
-      const SEGS  = 60;   // vertical strips
-      const ROWS  = 8;    // checker rows
-      const TILE_H = H / ROWS;
-      let   t = 0;
+      const SEGS = 100;   // high-res strips for smooth wave
+      const ROWS = 8;
+      const segW = W / SEGS;
+      let t = 0;
+
+      // Multi-frequency wave: natural cloth movement
+      function wave(f) {
+        return (
+          Math.sin(f * Math.PI * 2.2 - t * 3.2) * 0.62 +
+          Math.sin(f * Math.PI * 4.8 - t * 2.0) * 0.26 +
+          Math.sin(f * Math.PI * 0.9 - t * 1.4) * 0.12
+        ) * H * 0.14 * f;
+      }
 
       function frame() {
         ctx.clearRect(0, 0, W, H);
 
         for (let seg = 0; seg < SEGS; seg++) {
-          const xL  = (seg / SEGS) * W;
-          const xR  = ((seg + 1) / SEGS) * W;
-          const fL  = seg / SEGS;
-          const fR  = (seg + 1) / SEGS;
-          // wave: amplitude grows toward the free end
-          const wL  = Math.sin(fL * Math.PI * 2.2 - t) * H * 0.12 * fL;
-          const wR  = Math.sin(fR * Math.PI * 2.2 - t) * H * 0.12 * fR;
-          // column index for checker color
-          const colIdx = Math.round(fL * 11);
+          const xL = seg * segW;
+          const xR = (seg + 1) * segW;
+          const fL = seg / SEGS;
+          const fR = (seg + 1) / SEGS;
+          const wL = wave(fL);
+          const wR = wave(fR);
+
+          // Shading based on wave slope (cloth 3D effect)
+          const slope = (wR - wL) / segW;
+          const shade = Math.min(55, Math.abs(slope) * 90);
+
+          const colIdx = Math.floor(fL * 12);
 
           for (let row = 0; row < ROWS; row++) {
-            const y1L = row * TILE_H + wL;
-            const y2L = (row + 1) * TILE_H + wL;
-            const y1R = row * TILE_H + wR;
-            const y2R = (row + 1) * TILE_H + wR;
+            const y1L = (row / ROWS) * H + wL;
+            const y2L = ((row + 1) / ROWS) * H + wL;
+            const y1R = (row / ROWS) * H + wR;
+            const y2R = ((row + 1) / ROWS) * H + wR;
 
             const dark = (colIdx + row) % 2 === 0;
-            ctx.fillStyle = dark ? '#0d0d0d' : '#f0f0f0';
+            if (dark) {
+              const v = Math.max(0, Math.round(14 + shade * 0.9));
+              ctx.fillStyle = `rgb(${v},${v},${v})`;
+            } else {
+              const v = Math.min(255, Math.round(243 - shade * 0.65));
+              ctx.fillStyle = `rgb(${v},${v},${v})`;
+            }
 
             ctx.beginPath();
             ctx.moveTo(xL, y1L);
@@ -693,7 +729,21 @@
           }
         }
 
-        t += 0.075;
+        // Subtle free-end shadow for depth
+        const shadow = ctx.createLinearGradient(W * 0.78, 0, W, 0);
+        shadow.addColorStop(0, 'rgba(0,0,0,0)');
+        shadow.addColorStop(1, 'rgba(0,0,0,0.18)');
+        ctx.fillStyle = shadow;
+        ctx.fillRect(W * 0.78, 0, W * 0.22, H);
+
+        // Pole-attachment highlight (left edge looks lit)
+        const highlight = ctx.createLinearGradient(0, 0, W * 0.04, 0);
+        highlight.addColorStop(0, 'rgba(255,255,255,0.22)');
+        highlight.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = highlight;
+        ctx.fillRect(0, 0, W * 0.04, H);
+
+        t += 0.072;
         flagRAF = requestAnimationFrame(frame);
       }
 
@@ -702,10 +752,14 @@
 
     function stopFlag() {
       if (flagRAF) { cancelAnimationFrame(flagRAF); flagRAF = null; }
-      const canvas = document.getElementById('flag-canvas');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const c = document.getElementById('flag-canvas');
+      c.getContext('2d').clearRect(0, 0, c.width, c.height);
     }
+
+    // Hide broken img if propiedades-logo.png not found
+    document.getElementById('prop-logo-img').onerror = function() {
+      this.style.display = 'none';
+    };
   </script>
 </body>
 </html>
