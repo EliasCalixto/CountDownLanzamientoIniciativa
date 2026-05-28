@@ -30,11 +30,8 @@
       padding: 1.8vh 3vw 2vh;
     }
 
-    /* ══════════════════════════════════════
-       LOGO SVG
-    ══════════════════════════════════════ */
-    .logo-svg        { height: 8.5vh; width: auto; display: block; }
-    .logo-svg-sm     { height: 7vh;   width: auto; display: block; }
+    .logo-img    { height: 8.5vh; width: auto; display: block; }
+    .logo-img-sm { height: 7vh;  width: auto; display: block; }
 
     /* ══════════════════════════════════════
        HEADER
@@ -382,27 +379,8 @@
   <div class="overlay" id="overlay">
 
     <div class="ov-header">
-      <!-- MFD logo (white version) -->
       <div class="ov-logos">
-        <svg class="logo-svg-sm" viewBox="0 0 520 175" xmlns="http://www.w3.org/2000/svg">
-          <!-- Church body -->
-          <polygon points="85,2 89,52 81,52" fill="#fff"/>
-          <circle cx="85" cy="57" r="5.5" fill="#fff"/>
-          <rect x="79" y="61" width="12" height="23" fill="#fff"/>
-          <polygon points="16,95 85,63 154,95" fill="#fff"/>
-          <rect x="47" y="95" width="76" height="75" fill="#fff"/>
-          <rect x="10" y="110" width="39" height="60" fill="#fff"/>
-          <rect x="121" y="110" width="39" height="60" fill="#fff"/>
-          <!-- Cutouts (match overlay bg) -->
-          <path d="M71,170 L71,148 A14,14 0 0,1 99,148 L99,170 Z" fill="#1a3550"/>
-          <path d="M19,140 L19,129 A10,10 0 0,1 39,129 L39,140 Z" fill="#1a3550" opacity="0.7"/>
-          <path d="M131,140 L131,129 A10,10 0 0,1 151,129 L151,140 Z" fill="#1a3550" opacity="0.7"/>
-          <!-- Divider -->
-          <rect x="193" y="27" width="2.5" height="122" fill="#b89a6e"/>
-          <!-- MFD text -->
-          <text x="210" y="150" font-family="Inter,'Arial Black',Arial,sans-serif" font-weight="900" font-size="104" fill="#fff" letter-spacing="-4">MFD</text>
-        </svg>
-
+        <img src="logo.png" class="logo-img-sm" alt="MFD" style="filter:brightness(0) invert(1);" />
         <!-- Propiedades logo — guarda el archivo como "propiedades-logo.png" en la carpeta del proyecto -->
         <img src="propiedades-logo.png" class="prop-logo" alt="Propiedades" id="prop-logo-img" />
       </div>
@@ -423,25 +401,7 @@
        HEADER
   ══════════════════════════════════════ -->
   <div class="header">
-    <!-- MFD logo (dark version, on light bg) -->
-    <svg class="logo-svg" viewBox="0 0 520 175" xmlns="http://www.w3.org/2000/svg">
-      <!-- Church body -->
-      <polygon points="85,2 89,52 81,52" fill="#1d3c5e"/>
-      <circle cx="85" cy="57" r="5.5" fill="#1d3c5e"/>
-      <rect x="79" y="61" width="12" height="23" fill="#1d3c5e"/>
-      <polygon points="16,95 85,63 154,95" fill="#1d3c5e"/>
-      <rect x="47" y="95" width="76" height="75" fill="#1d3c5e"/>
-      <rect x="10" y="110" width="39" height="60" fill="#1d3c5e"/>
-      <rect x="121" y="110" width="39" height="60" fill="#1d3c5e"/>
-      <!-- Cutouts (match page bg) -->
-      <path d="M71,170 L71,148 A14,14 0 0,1 99,148 L99,170 Z" fill="#e8f0f8"/>
-      <path d="M19,140 L19,129 A10,10 0 0,1 39,129 L39,140 Z" fill="#e8f0f8" opacity="0.6"/>
-      <path d="M131,140 L131,129 A10,10 0 0,1 151,129 L151,140 Z" fill="#e8f0f8" opacity="0.6"/>
-      <!-- Divider -->
-      <rect x="193" y="27" width="2.5" height="122" fill="#a08060"/>
-      <!-- MFD text -->
-      <text x="210" y="150" font-family="Inter,'Arial Black',Arial,sans-serif" font-weight="900" font-size="104" fill="#1d3c5e" letter-spacing="-4">MFD</text>
-    </svg>
+    <img src="logo.png" class="logo-img" alt="MFD" />
 
     <div class="test-btns">
       <span class="sim-pill" id="sim-pill">Simulación activa</span>
