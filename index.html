@@ -463,6 +463,24 @@
   </div>
 
   <script>
+    // ── Wake Lock: evita que la pantalla se apague ─────────────────────
+    let wakeLock = null;
+
+    async function keepScreenOn() {
+      if (!('wakeLock' in navigator)) return; // navegador no soporta
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+      } catch (e) { /* permiso denegado o error, se ignora silenciosamente */ }
+    }
+
+    // Re-solicitar cuando la pestaña vuelve a estar activa
+    // (el wake lock se libera automáticamente al cambiar de pestaña)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') keepScreenOn();
+    });
+
+    keepScreenOn();
+
     // Go Live: May 29 2026 14:00 Bogotá (UTC-5) = 19:00 UTC
     const GO_LIVE_UTC = Date.UTC(2026, 4, 29, 19, 0, 0);
 
