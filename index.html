@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MFD · Go Live — Colombia</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1d3c5e;
+      --blue: #2a5280;
+      --gold: #b89a6e;
+      --bg:   #e8f0f8;
+    }
+
+    html, body {
+      height: 100vh; width: 100vw;
+      overflow: hidden;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(ellipse at 25% 15%, #cfe0f0 0%, #e8f0f8 55%, #d0e2f4 100%);
+      color: var(--navy);
+      user-select: none;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      padding: 1.8vh 3vw 2vh;
+    }
+
+    /* ══════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════ */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      height: 10vh;
+    }
+
+    .logo img {
+      height: 8vh;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .test-btns {
+      display: flex;
+      align-items: center;
+      gap: .5vw;
+    }
+
+    .sim-pill {
+      background: #fef08a;
+      color: #713f12;
+      font-size: max(.65vw, 9px);
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35vh .8vw;
+      border-radius: 100px;
+      display: none;
+      animation: pill-blink 1.4s ease-in-out infinite;
+    }
+    .sim-pill.on { display: block; }
+    @keyframes pill-blink { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    .tbtn {
+      padding: .5vh .9vw;
+      border: 1.5px solid rgba(29,60,94,.25);
+      border-radius: 8px;
+      background: rgba(255,255,255,.45);
+      backdrop-filter: blur(6px);
+      color: var(--navy);
+      font-size: max(.68vw, 9px);
+      font-weight: 700;
+      letter-spacing: .06em;
+      cursor: pointer;
+      font-family: inherit;
+      text-transform: uppercase;
+      transition: background .12s, border-color .12s, transform .1s;
+    }
+    .tbtn:hover { background:rgba(255,255,255,.8); border-color:var(--blue); transform:translateY(-1px); }
+    .tbtn:active { transform:translateY(0); }
+    .tbtn.real { border-color:var(--gold); color:#7a5c30; }
+
+    /* ══════════════════════════════════════
+       TITLE
+    ══════════════════════════════════════ */
+    .title-section {
+      text-align: center;
+      flex-shrink: 0;
+      padding: 1.2vh 0 .8vh;
+    }
+
+    .eyebrow {
+      font-size: max(1.05vw, 11px);
+      font-weight: 700;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .8vh;
+    }
+
+    .main-title {
+      font-size: clamp(2.4rem, 6.2vw, 6.2vw);
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -.025em;
+      line-height: 1;
+    }
+
+    /* ══════════════════════════════════════
+       HERO: TIME + COUNTDOWN (grouped)
+    ══════════════════════════════════════ */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 0;
+      gap: 1.5vh;
+      padding-bottom: 1.5vh;
+    }
+
+    /* TIME */
+    .time-row {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .time-label {
+      font-size: max(.75vw, 9px);
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--blue);
+      opacity: .5;
+      margin-bottom: .4vh;
+    }
+
+    .time-value {
+      font-size: clamp(2.5rem, 7.5vw, 7.5vw);
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: var(--navy);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    /* COUNTDOWN */
+    .cd-wrap {
+      flex-shrink: 0;
+    }
+
+    .cd-label {
+      text-align: center;
+      font-size: max(.72vw, 9px);
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      opacity: .4;
+      margin-bottom: 1.4vh;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1vw;
+    }
+
+    .unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1vh;
+      flex: 1;
+      max-width: 22vw;
+    }
+
+    .card {
+      width: 100%;
+      aspect-ratio: 1.08 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: max(1.8vh, 16px);
+      background: var(--navy);
+      box-shadow:
+        0 1.2vh 3.5vh rgba(29,60,94,.35),
+        0 .3vh .8vh rgba(29,60,94,.22),
+        inset 0 2px 0 rgba(255,255,255,.08);
+      position: relative;
+      overflow: hidden;
+      transition: background .4s ease, box-shadow .4s ease;
+    }
+    .card::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:48%;
+      background: linear-gradient(180deg,rgba(255,255,255,.07) 0%,transparent 100%);
+      pointer-events: none;
+    }
+
+    .num {
+      font-size: clamp(2.8rem, 12.5vw, 12.5vw);
+      font-weight: 900;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.04em;
+      line-height: 1;
+      z-index: 1;
+    }
+
+    .unit-name {
+      font-size: max(.9vw, 10px);
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      opacity: .6;
+    }
+
+    .sep {
+      font-size: clamp(2rem, 8.5vw, 8.5vw);
+      font-weight: 900;
+      color: var(--gold);
+      opacity: .65;
+      flex: none;
+      line-height: 1;
+      margin-bottom: 3vh;
+      transition: color .4s;
+    }
+
+    /* ══════════════════════════════════════
+       COUNTDOWN COLOR STATES
+    ══════════════════════════════════════ */
+    /* WARNING ≤ 4h → amber */
+    .countdown.s-warning .card {
+      background: #b45309;
+      box-shadow: 0 1.2vh 4vh rgba(180,83,9,.45), 0 .3vh 1vh rgba(180,83,9,.3);
+    }
+    .countdown.s-warning .sep { color:#fbbf24; opacity:.8; }
+
+    /* ALERT ≤ 1h → red */
+    .countdown.s-alert .card {
+      background: #dc2626;
+      box-shadow: 0 1.2vh 4vh rgba(220,38,38,.48), 0 .3vh 1vh rgba(220,38,38,.32);
+    }
+    .countdown.s-alert .sep { color:#fca5a5; opacity:.9; }
+
+    /* CRITICAL ≤ 10s → red pulsing */
+    @keyframes pulse-crit {
+      0%,100%{ background:#dc2626; transform:scale(1);    box-shadow:0 1.2vh 4vh rgba(220,38,38,.48); }
+      50%    { background:#ff1a1a; transform:scale(1.06); box-shadow:0 2.5vh 6vh rgba(255,0,0,.7); }
+    }
+    .countdown.s-critical .card { animation: pulse-crit .5s ease-in-out infinite; }
+    .countdown.s-critical .sep  { color:#fca5a5; opacity:1; }
+
+    /* HOUR FLASH */
+    @keyframes hour-flash {
+      0%        { background: var(--pre, #1d3c5e); transform:scale(1); }
+      20%,65%   { background: #dc2626; transform:scale(1.08); box-shadow:0 1.5vh 5vh rgba(220,38,38,.7); }
+      100%      { background: var(--pre, #1d3c5e); transform:scale(1); }
+    }
+    .card.flash { animation: hour-flash .9s ease-in-out !important; }
+
+    /* ══════════════════════════════════════
+       GO LIVE OVERLAY
+    ══════════════════════════════════════ */
+    .overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: linear-gradient(145deg, #0d2236 0%, #1d3c5e 55%, #24507a 100%);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    .overlay.on { display: flex; }
+
+    /* confetti container */
+    #confetti-box {
+      position: fixed; inset: 0; z-index: 210;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    @keyframes confetti-fall {
+      0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+      85%  { opacity: 1; }
+      100% { transform: translateY(105vh) rotate(800deg); opacity: 0; }
+    }
+
+    /* Overlay logo */
+    .ov-logo {
+      position: absolute;
+      top: 3vh; left: 3vw;
+    }
+    .ov-logo img { height: 7vh; width:auto; }
+
+    /* Overlay reset btn */
+    .ov-reset {
+      position: absolute;
+      top: 3.5vh; right: 3vw;
+      display: none;
+    }
+    .ov-reset.on { display: block; }
+
+    /* Flag area */
+    .flag-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 3vh;
+    }
+
+    .flagpole {
+      width: 10px;
+      height: 34vh;
+      background: linear-gradient(180deg,#d4d4d4,#888 60%,#555);
+      border-radius: 5px;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(0,0,0,.4);
+    }
+
+    #flag-canvas {
+      display: block;
+    }
+
+    /* Go Live text */
+    @keyframes golive-pop {
+      0%  { opacity:0; transform:scale(.7) translateY(30px); }
+      60% { transform:scale(1.06) translateY(-6px); }
+      100%{ opacity:1; transform:scale(1) translateY(0); }
+    }
+
+    .golive-text {
+      font-size: clamp(5rem, 15vw, 15vw);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.03em;
+      line-height: 1;
+      text-shadow: 0 0 60px rgba(184,154,110,.6), 0 4px 30px rgba(0,0,0,.5);
+      animation: golive-pop .7s cubic-bezier(.34,1.56,.64,1) both;
+    }
+
+    .golive-sub {
+      font-size: clamp(.9rem, 2vw, 2vw);
+      color: rgba(255,255,255,.55);
+      font-weight: 400;
+      letter-spacing: .06em;
+      margin-top: 1.5vh;
+      text-align: center;
+    }
+
+    /* Sparkles on overlay */
+    @keyframes sparkle {
+      0%,100%{ opacity:0; transform:scale(0) rotate(0deg); }
+      50%    { opacity:1; transform:scale(1) rotate(180deg); }
+    }
+    .sparkle {
+      position: absolute;
+      width: 12px; height: 12px;
+      background: var(--gold);
+      clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      animation: sparkle 1.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ CONFETTI BOX ══ -->
+  <div id="confetti-box"></div>
+
+  <!-- ══ GO LIVE OVERLAY ══ -->
+  <div class="overlay" id="overlay">
+    <div class="ov-logo"><img src="logo.png" alt="MFD" /></div>
+
+    <button class="tbtn real ov-reset" id="ov-reset" onclick="stopSim()">Volver a tiempo real</button>
+
+    <div class="flag-area">
+      <div class="flagpole"></div>
+      <canvas id="flag-canvas"></canvas>
+    </div>
+
+    <div class="golive-text">¡Go Live!</div>
+    <div class="golive-sub">El nuevo modelo OyM ya está en marcha · Colombia</div>
+  </div>
+
+  <!-- ══ HEADER ══ -->
+  <div class="header">
+    <div class="logo">
+      <img src="logo.png" alt="MFD" />
+    </div>
+    <div class="test-btns">
+      <span class="sim-pill" id="sim-pill">Simulación activa</span>
+      <button class="tbtn" onclick="simulate(4*3600*1000+500)">Simular 4 h</button>
+      <button class="tbtn" onclick="simulate(1*3600*1000+500)">Simular 1 h</button>
+      <button class="tbtn" onclick="simulate(10*1000+800)">Simular 10 s</button>
+      <button class="tbtn real"  onclick="stopSim()">Tiempo real</button>
+    </div>
+  </div>
+
+  <!-- ══ TITLE ══ -->
+  <div class="title-section">
+    <div class="eyebrow">Implementación de Nuevo Modelo OyM</div>
+    <div class="main-title">Go Live — Colombia</div>
+  </div>
+
+  <!-- ══ HERO (time + countdown) ══ -->
+  <div class="hero">
+
+    <div class="time-row">
+      <div class="time-label">Hora actual</div>
+      <div class="time-value" id="clock">--:--:--</div>
+    </div>
+
+    <div class="cd-wrap">
+      <div class="cd-label">Tiempo restante para el Go Live</div>
+      <div class="countdown" id="countdown">
+
+        <div class="unit">
+          <div class="card" id="cd-d"><span class="num" id="days">00</span></div>
+          <span class="unit-name">Días</span>
+        </div>
+
+        <div class="sep">:</div>
+
+        <div class="unit">
+          <div class="card" id="cd-h"><span class="num" id="hours">00</span></div>
+          <span class="unit-name">Horas</span>
+        </div>
+
+        <div class="sep">:</div>
+
+        <div class="unit">
+          <div class="card" id="cd-m"><span class="num" id="minutes">00</span></div>
+          <span class="unit-name">Minutos</span>
+        </div>
+
+        <div class="sep">:</div>
+
+        <div class="unit">
+          <div class="card" id="cd-s"><span class="num" id="seconds">00</span></div>
+          <span class="unit-name">Segundos</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /hero -->
+
+  <script>
+    // ── Go Live target: May 29 2026 15:00 Bogotá (UTC-5) = 20:00 UTC ──
+    const GO_LIVE_UTC = Date.UTC(2026, 4, 29, 20, 0, 0);
+
+    const pad = n => String(n).padStart(2, '0');
+
+    // ── Bogotá clock (UTC-5, no DST) ──────────────────────────────────
+    function bogota() {
+      const now = new Date();
+      return new Date(now.getTime() + now.getTimezoneOffset() * 60000 - 5 * 3600000);
+    }
+
+    // ── Simulation ────────────────────────────────────────────────────
+    let simMode = false, simStart = 0, simInit = 0;
+
+    function getDiff() {
+      return simMode
+        ? Math.max(0, simInit - (Date.now() - simStart))
+        : GO_LIVE_UTC - Date.now();
+    }
+
+    function simulate(ms) {
+      simMode = true; simStart = Date.now(); simInit = ms;
+      lastTH = -1;
+      document.getElementById('sim-pill').classList.add('on');
+      document.getElementById('overlay').classList.remove('on');
+      document.getElementById('ov-reset').classList.remove('on');
+      stopConfetti(); stopFlag();
+    }
+
+    function stopSim() {
+      simMode = false; lastTH = -1;
+      document.getElementById('sim-pill').classList.remove('on');
+      document.getElementById('overlay').classList.remove('on');
+      document.getElementById('ov-reset').classList.remove('on');
+      stopConfetti(); stopFlag();
+    }
+
+    // ── Hour-flash ────────────────────────────────────────────────────
+    let lastTH = -1;
+    const CARDS = ['cd-d','cd-h','cd-m','cd-s'].map(id => document.getElementById(id));
+    const PRE = { normal:'#1d3c5e', warning:'#b45309', alert:'#dc2626', critical:'#dc2626' };
+
+    function flashCards(state) {
+      CARDS.forEach(c => {
+        c.style.setProperty('--pre', PRE[state] ?? '#1d3c5e');
+        c.classList.remove('flash');
+        void c.offsetWidth;
+        c.classList.add('flash');
+      });
+      setTimeout(() => CARDS.forEach(c => c.classList.remove('flash')), 950);
+    }
+
+    // ── State ─────────────────────────────────────────────────────────
+    function getState(diff) {
+      if (diff <= 10000)   return 'critical';
+      if (diff <= 3600000) return 'alert';
+      if (diff <=14400000) return 'warning';
+      return 'normal';
+    }
+
+    // ── Main tick ─────────────────────────────────────────────────────
+    let goLiveShown = false;
+
+    function tick() {
+      const bt = bogota();
+      document.getElementById('clock').textContent =
+        pad(bt.getHours()) + ':' + pad(bt.getMinutes()) + ':' + pad(bt.getSeconds());
+
+      const diff = getDiff();
+
+      if (diff <= 0) {
+        document.getElementById('days').textContent    = '00';
+        document.getElementById('hours').textContent   = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        if (!goLiveShown) { showGoLive(); goLiveShown = true; }
+        return;
+      }
+
+      goLiveShown = false;
+
+      const tot = Math.floor(diff / 1000);
+      const d = Math.floor(tot / 86400);
+      const h = Math.floor((tot % 86400) / 3600);
+      const m = Math.floor((tot % 3600) / 60);
+      const s = tot % 60;
+
+      document.getElementById('days').textContent    = pad(d);
+      document.getElementById('hours').textContent   = pad(h);
+      document.getElementById('minutes').textContent = pad(m);
+      document.getElementById('seconds').textContent = pad(s);
+
+      const state = getState(diff);
+      const th = Math.floor(tot / 3600);
+      if (lastTH !== -1 && th < lastTH) flashCards(state);
+      lastTH = th;
+
+      document.getElementById('countdown').className = 'countdown s-' + state;
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    // ══════════════════════════════════════════════════════════════════
+    // GO LIVE CELEBRATION
+    // ══════════════════════════════════════════════════════════════════
+
+    let confettiRunning = false;
+    let confettiPieces = [];
+    let flagRAF = null;
+
+    function showGoLive() {
+      const ov = document.getElementById('overlay');
+      ov.classList.add('on');
+      if (simMode) document.getElementById('ov-reset').classList.add('on');
+      launchConfetti();
+      startFlag();
+      spawnSparkles();
+    }
+
+    // ── Confetti / Serpentinas ────────────────────────────────────────
+    const CONFETTI_COLORS = [
+      '#1d3c5e','#2a5280','#b89a6e','#fbbf24',
+      '#ef4444','#10b981','#ffffff','#60a5fa',
+      '#f472b6','#a3e635','#fb923c','#e879f9'
+    ];
+
+    function launchConfetti() {
+      confettiRunning = true;
+      const box = document.getElementById('confetti-box');
+      box.innerHTML = '';
+      confettiPieces = [];
+
+      for (let i = 0; i < 160; i++) {
+        const el = document.createElement('div');
+        const isRound   = Math.random() > .65;
+        const isStreamer = Math.random() > .6 && !isRound;
+        const color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+        const w = isRound ? 8 + Math.random() * 8 : isStreamer ? 4 + Math.random() * 5 : 6 + Math.random() * 8;
+        const h = isRound ? w : isStreamer ? 18 + Math.random() * 22 : 8 + Math.random() * 12;
+        const dur  = 2.2 + Math.random() * 3.5;
+        const del  = Math.random() * 5;
+
+        el.style.cssText = `
+          position:absolute;
+          top:-30px;
+          left:${Math.random()*100}vw;
+          width:${w}px;
+          height:${h}px;
+          background:${color};
+          border-radius:${isRound ? '50%' : isStreamer ? '2px' : '3px'};
+          opacity:0;
+          animation: confetti-fall ${dur}s ${del}s linear infinite;
+          transform: rotate(${Math.random()*360}deg);
+        `;
+        box.appendChild(el);
+        confettiPieces.push(el);
+      }
+    }
+
+    function stopConfetti() {
+      confettiRunning = false;
+      document.getElementById('confetti-box').innerHTML = '';
+      confettiPieces = [];
+    }
+
+    // ── Sparkles ──────────────────────────────────────────────────────
+    function spawnSparkles() {
+      const ov = document.getElementById('overlay');
+      const positions = [
+        [15,20],[80,15],[10,70],[85,65],[50,10],[30,80],[70,85],[5,45],[92,40]
+      ];
+      positions.forEach(([l, t], i) => {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.style.cssText = `
+          left:${l}%;top:${t}%;
+          width:${14+Math.random()*18}px;height:${14+Math.random()*18}px;
+          animation-delay:${i * .22}s;
+          animation-duration:${1.2+Math.random()*.8}s;
+        `;
+        ov.appendChild(s);
+      });
+    }
+
+    // ── Waving F1 Checkered Flag (canvas) ────────────────────────────
+    function startFlag() {
+      const canvas = document.getElementById('flag-canvas');
+      // Responsive: ~38vw wide, ~20vh tall
+      const W = Math.round(window.innerWidth * .38);
+      const H = Math.round(window.innerHeight * .22);
+      canvas.width  = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d');
+
+      const SEGS  = 60;   // vertical strips
+      const ROWS  = 8;    // checker rows
+      const TILE_H = H / ROWS;
+      let   t = 0;
+
+      function frame() {
+        ctx.clearRect(0, 0, W, H);
+
+        for (let seg = 0; seg < SEGS; seg++) {
+          const xL  = (seg / SEGS) * W;
+          const xR  = ((seg + 1) / SEGS) * W;
+          const fL  = seg / SEGS;
+          const fR  = (seg + 1) / SEGS;
+          // wave: amplitude grows toward the free end
+          const wL  = Math.sin(fL * Math.PI * 2.2 - t) * H * 0.12 * fL;
+          const wR  = Math.sin(fR * Math.PI * 2.2 - t) * H * 0.12 * fR;
+          // column index for checker color
+          const colIdx = Math.round(fL * 11);
+
+          for (let row = 0; row < ROWS; row++) {
+            const y1L = row * TILE_H + wL;
+            const y2L = (row + 1) * TILE_H + wL;
+            const y1R = row * TILE_H + wR;
+            const y2R = (row + 1) * TILE_H + wR;
+
+            const dark = (colIdx + row) % 2 === 0;
+            ctx.fillStyle = dark ? '#0d0d0d' : '#f0f0f0';
+
+            ctx.beginPath();
+            ctx.moveTo(xL, y1L);
+            ctx.lineTo(xR, y1R);
+            ctx.lineTo(xR, y2R);
+            ctx.lineTo(xL, y2L);
+            ctx.closePath();
+            ctx.fill();
+          }
+        }
+
+        t += 0.075;
+        flagRAF = requestAnimationFrame(frame);
+      }
+
+      frame();
+    }
+
+    function stopFlag() {
+      if (flagRAF) { cancelAnimationFrame(flagRAF); flagRAF = null; }
+      const canvas = document.getElementById('flag-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  </script>
+</body>
+</html>
