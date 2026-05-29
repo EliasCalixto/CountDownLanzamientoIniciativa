@@ -117,29 +117,31 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       min-height: 0;
-      gap: 1.5vh;
+      gap: 2vh;
     }
 
-    .time-row { text-align: center; flex-shrink: 0; }
+    .time-row { text-align: center; flex-shrink: 0; width: 100%; }
 
     .time-label {
-      font-size: max(1.6vw, 18px);
+      font-size: max(1.1vw, 13px);
       font-weight: 600;
       letter-spacing: .22em;
       text-transform: uppercase;
       color: var(--blue);
-      opacity: .5;
-      margin-bottom: .4vh;
+      opacity: .45;
+      margin-bottom: .3vh;
     }
 
     .time-value {
-      font-size: clamp(2.5rem, 7.5vw, 7.5vw);
-      font-weight: 800;
+      font-size: clamp(1.6rem, 4.5vw, 4.5vw);
+      font-weight: 700;
       letter-spacing: .06em;
       color: var(--navy);
       font-variant-numeric: tabular-nums;
       line-height: 1;
+      opacity: .7;
     }
 
     .cd-wrap { flex-shrink: 0; }
@@ -195,7 +197,7 @@
     }
 
     .num {
-      font-size: clamp(2.8rem, 12.5vw, 12.5vw);
+      font-size: clamp(3.2rem, 15vw, 15vw);
       font-weight: 900;
       color: #fff;
       font-variant-numeric: tabular-nums;
@@ -421,11 +423,6 @@
   ══════════════════════════════════════ -->
   <div class="hero">
 
-    <div class="time-row">
-      <div class="time-label">Hora actual</div>
-      <div class="time-value" id="clock">--:--:--</div>
-    </div>
-
     <div class="cd-wrap">
       <div class="cd-label">Tiempo restante para el Go Live</div>
       <div class="countdown" id="countdown">
@@ -457,6 +454,11 @@
         </div>
 
       </div>
+    </div>
+
+    <div class="time-row">
+      <div class="time-label">Hora actual</div>
+      <div class="time-value" id="clock">--:--:--</div>
     </div>
 
   </div>
