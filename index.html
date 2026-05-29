@@ -117,12 +117,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
       min-height: 0;
-      gap: 2vh;
+      gap: 1.5vh;
     }
 
-    .time-row { text-align: center; flex-shrink: 0; width: 100%; }
+    .time-row { text-align: center; flex-shrink: 0; }
 
     .time-label {
       font-size: max(1.6vw, 18px);
@@ -422,6 +421,11 @@
   ══════════════════════════════════════ -->
   <div class="hero">
 
+    <div class="time-row">
+      <div class="time-label">Hora actual</div>
+      <div class="time-value" id="clock">--:--:--</div>
+    </div>
+
     <div class="cd-wrap">
       <div class="cd-label">Tiempo restante para el Go Live</div>
       <div class="countdown" id="countdown">
@@ -453,11 +457,6 @@
         </div>
 
       </div>
-    </div>
-
-    <div class="time-row">
-      <div class="time-label">Hora actual</div>
-      <div class="time-value" id="clock">--:--:--</div>
     </div>
 
   </div>
