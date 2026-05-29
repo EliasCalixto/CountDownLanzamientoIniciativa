@@ -134,7 +134,7 @@
     }
 
     .time-value {
-      font-size: clamp(2.5rem, 7.5vw, 7.5vw);
+      font-size: clamp(2rem, 5.5vw, 5.5vw);
       font-weight: 800;
       letter-spacing: .06em;
       color: var(--navy);
@@ -401,8 +401,6 @@
 
     <div class="test-btns">
       <span class="sim-pill" id="sim-pill">Simulación activa</span>
-      <button class="tbtn" onclick="simulate(4*3600*1000+500)">Simular 4 h</button>
-      <button class="tbtn" onclick="simulate(1*3600*1000+500)">Simular 1 h</button>
       <button class="tbtn" onclick="simulate(10*1000+800)">Simular 10 s</button>
       <button class="tbtn real" onclick="stopSim()">Tiempo real</button>
     </div>
